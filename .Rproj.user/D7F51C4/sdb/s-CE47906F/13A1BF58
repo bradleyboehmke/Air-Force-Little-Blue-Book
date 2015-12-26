@@ -1,0 +1,18 @@
+{
+    "contents" : "---\ntitle: \"README.Rmd\"\nauthor: NULL\ndate: \"December 26, 2015\"\noutput: \n  html_document:\n    keep_md: true\n---\n\nIntroduction and explanation of the paper...\n\nThe contents of this repository include:\n\n1. 19XXr.txt files - These text files are the Air Force \"Little Blue Book\" documents for the four available years (1983, 1997, 2012, & 2015). An online version of the most recent (2015) document can be found [here](http://www.e-publishing.af.mil/shared/media/document/AFD-150826-047.pdf). \n2. Basic Stuff XXXX.R files - These scripts import the Air Force Blue Book text document of interest and assesses the commonality of the key words \"you\" and \"our\". The final output provides the keyword count and the ratio of keywords to total word count for these specific keywords along with the top 10 most common words in this document.\n3. XXXX Detail.R - These script import the Air Force Little Blue Book text document of interest and pre-processes the text into a corpus for n-gram analysis. The script then identifies the 1-4 grams in the document and then visualizes the most frequent n-grams.\n4. Euclidean Distance.R - This script plots for comparison the use of the directive term \"you\" versus the inclusive term \"our\" across the four Air Force Little Blue Book documents.\n5. Polarity Assessment XXXX.R files - These scripts import the Air Force Little Blue Book text document of interest and pre-processes the text for sentiment analysis. We use the `sentiment` package which allows us to classify the polarity (e.g. positive or negative) of a set of texts using a naive Bayes classifier trained on Janyce Wiebe's subjectivity lexicon. The positive vs negative word list used in this process can be viewed at sentiment/data/subjectivity.csv\n\n\n\n",
+    "created" : 1451151322012.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1744070666",
+    "id" : "13A1BF58",
+    "lastKnownWriteTime" : 1451171926,
+    "path" : "/Volumes/Memorex/Air Force Little Blue Book/README.Rmd",
+    "project_path" : "README.Rmd",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "type" : "r_markdown"
+}
