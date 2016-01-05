@@ -8,9 +8,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
-<meta name="author" content />
+<meta name="author" content="Author One Undisclosed" />
+<meta name="author" content="Author Two Undisclosed" />
 
-<meta name="date" content="2015-12-26" />
 
 <title>README.Rmd</title>
 
@@ -63,19 +63,73 @@ img {
 
 <div id="header">
 <h1 class="title">README.Rmd</h1>
-<h4 class="date"><em>December 26, 2015</em></h4>
+<h3 class="subtitle"><em>Unpacking the United States Air Force’s Little Blue Book(s)</em></h3>
+<h4 class="author"><em>Author One Undisclosed</em></h4>
+<h4 class="author"><em>Author Two Undisclosed</em></h4>
 </div>
 
 
-<p>Introduction and explanation of the paper…</p>
-<p>The contents of this repository include:</p>
-<ol style="list-style-type: decimal">
-<li>19XXr.txt files - These text files are the Air Force “Little Blue Book” documents for the four available years (1983, 1997, 2012, &amp; 2015). An online version of the most recent (2015) document can be found <a href="http://www.e-publishing.af.mil/shared/media/document/AFD-150826-047.pdf">here</a>.</li>
-<li>Basic Stuff XXXX.R files - These scripts import the Air Force Blue Book text document of interest and assesses the commonality of the key words “you” and “our”. The final output provides the keyword count and the ratio of keywords to total word count for these specific keywords along with the top 10 most common words in this document.</li>
-<li>XXXX Detail.R - These script import the Air Force Little Blue Book text document of interest and pre-processes the text into a corpus for n-gram analysis. The script then identifies the 1-4 grams in the document and then visualizes the most frequent n-grams.</li>
-<li>Euclidean Distance.R - This script plots for comparison the use of the directive term “you” versus the inclusive term “our” across the four Air Force Little Blue Book documents.</li>
-<li>Polarity Assessment XXXX.R files - These scripts import the Air Force Little Blue Book text document of interest and pre-processes the text for sentiment analysis. We use the <code>sentiment</code> package which allows us to classify the polarity (e.g. positive or negative) of a set of texts using a naive Bayes classifier trained on Janyce Wiebe’s subjectivity lexicon. The positive vs negative word list used in this process can be viewed at sentiment/data/subjectivity.csv</li>
+<center>
+<strong>Abstract</strong>
+</center>
+<p>Meaning is essential as it is elusive. While potentially irksome when confronting the banalities of everyday existence, such ambiguity is consequential, if not detrimental, in a national security environment. Textual analysis enables one to realize the content, structure, and function of words and phrases contained in documents. Such understandings are particularly relevant in Industrial Engineering (IE) as textual analysis allows one to rigorously interrogate potential negotiated meanings resident in often complex systems of texts and explore implications for action. To illustrate we generate analytically-based insights of the historical versions of the United States Air Force’s (USAF’s) “little blue book” document. We leverage word clouds to reveal high-frequency terms, n-gram analyses to illustrate how key words and phrases are employed, and sentiment analysis to ascertain potential contextual polarities in the text. Collectively these insights help to delimit the elusive meaning(s) of a text and provide one with an analytic inroad for understanding. In the process, one is able to establish better the clarity of intent required to effectively execute one’s mission.</p>
+<div id="purpose-of-repository" class="section level2">
+<h2>Purpose of Repository</h2>
+<p>This repository accompanies the research paper “Unpacking the United States Air Force’s Little Blue Book(s)” submitted for inclusion in the <em>Proceedings of the 2016 Industrial and Systems Engineering Research Conference.</em> Due to the constrained page limit for submissions this year the methodology section for the submitted paper was greatly truncated. This file expands the methodology section to provide a more robust understanding of the approach applied. Furthermore, this repository contains the code scripts employed in the analysis and the text analyzed.</p>
+</div>
+<div id="expanded-methodology-section" class="section level2">
+<h2>3. Expanded Methodology Section</h2>
+<p>Computational textual analysis of the four historical versions of the little blue book was executed via R programming software. To accomodate this, the historical versions of the Air Force “Little Blue Book” documents were converted to text (.txt) documents. The published and text-converted files are contained in this repository. The converted .txt files that our textual analysis effectuates are titled <em>1983r.txt</em>, <em>1997r.txt</em>, <em>2012r.txt</em>, &amp; <em>2015r.txt</em>.<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
+<div id="descriptive-characteristics" class="section level3">
+<h3>3.1 Descriptive Characteristics</h3>
+<p>The four documents exhibit substantially different format styles. One version might contain an opening note, table of contents, or reference section, while other versions do not. To standardize the page count across the different format types, a decision was made to focus on the number of pages associated with the “body text” of the document. In short, the page count reflects the number of pages on which “body text” is resident, and not the total number of pages contained in the document. While this complicates slightly the determination of page count, it is considered more reflective of the underlying differences in content among the texts. These “body text” sections were the basis of the word count and content analyses as well.</p>
+<p>Total word count and page density (words per page) for each document were calculated in the <em>descriptive_statistics.R</em> script. These descriptives are calculated by importing the text files, splitting the text by individual words, eliminating extra white space and then aggregating.</p>
+</div>
+<div id="comparative-word-cloud-analysis" class="section level3">
+<h3>Comparative Word Cloud Analysis</h3>
+<p>To assess the content of the documents we begin by assessing frequently used terms. This is performed through a comparative word cloud for which the code can be assessed in the <em>comparative_wordcloud.R</em> script. The comparison word cloud algorithm assesses both inter and intra word frequency such that <span class="math">\(p_{i,j}\)</span> is the rate at which word <span class="math">\(i\)</span> occurs in document <span class="math">\(j\)</span>, and <span class="math">\(p_j\)</span> is the average across <span class="math">\(n\)</span> documents (<span class="math">\(\sum_{i}p_{i,j}/n\)</span>). The size of each word is mapped to its maximum deviation ( <span class="math">\(max_i(p_{i,j}-p_j)\)</span> ), and its quadrant position is determined by the document where that maximum occurs.<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></p>
+<p>To aid the assessment of the comparison word cloud, further evaluation of single term frequency was performed. We assessed the frequency of single terms within each document, compared the frequency of terms found in all four documents, and then compared words that were not commonly found between each document using pairwise assessments. These assessments can be found in the <em>single_term_frequency.R</em> script.</p>
+</div>
+<div id="n-gram-analysis" class="section level3">
+<h3>N-gram Analysis</h3>
+<p>To advance our content analysis we moved from single word analysis to assessment of phrases through <span class="math">\(n\)</span>-gram analysis. An <span class="math">\(n\)</span>-gram is simply a contiguous sequence of words and assessment of these word sequences allows us to understand more behind the emphasized phrases in each document.</p>
+<p>Our focus is to understand the substantive phrases commonly used; consequently, we remove common stop words<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a> so that we can focus on the principal elements of the grammar <a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a> rather than conjunctions and coordinations which primarily serve as linkages within sentences.<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a></p>
+<p>To perform our <span class="math">\(n\)</span>-gram analysis we use RWeka to interface with Weka and tokenize the document text into bi-grams, tri-grams, and quad-grams and develop our term document matrix. We then visually assessed the frequent bi-, tri-, and quad-grams for each little blue book text. These assessments can be found in the <em>n-gram_XXXX</em> files where XXXX is represented by the year of the document (i.e. 1983, 1997, etc.)</p>
+</div>
+<div id="sentiment-and-tone-of-address-analysis" class="section level3">
+<h3>Sentiment and Tone of Address Analysis</h3>
+<p>Lastly, we transition to sentiment analysis. The first part of our sentiment analysis is to classify the polarity (e.g. positiveness versus negativeness) of the four texts using a naïve Bayes classifier trained on Janyce Wiebe’s subjectivity lexicon<a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a><span class="math">\(^,\)</span><a href="#fn7" class="footnoteRef" id="fnref7"><sup>7</sup></a>. The dataset containing the list of positive and negative subjective words can be viewed in the <em>sentiment/data/subjectivity.csv</em> file.</p>
+<p>The Naïve Bayes model involves a simplifying conditional independence assumption. That is, given a particular class (positive versus negative in our case), the words are conditionally independent of each other. This assumption has shown to not significantly influence the accuracy in text classification.<a href="#fn8" class="footnoteRef" id="fnref8"><sup>8</sup></a><span class="math">\(^,\)</span><a href="#fn9" class="footnoteRef" id="fnref9"><sup>9</sup></a> The maximum likelihood probability of a word belonging to a particular class is simply the the count of a particular word (<span class="math">\(x_i\)</span>) of positive or negative class (<span class="math">\(c_i\)</span>) in a given document divided by the total number of words of class <span class="math">\(i\)</span> in the document:<a href="#fn10" class="footnoteRef" id="fnref10"><sup>10</sup></a></p>
+<p><span class="math">\[P(x_i | c) = \frac{\sum [x_i \in c_i]}{\sum \forall x_i \in c_i}\]</span></p>
+<p>According to the Bayes Rule, the probability of a particular document belonging to a class <span class="math">\(c_i\)</span> is given by,</p>
+<p><span class="math">\[P(c_i | d) = \frac{P(d | c_i) * P(c_i)}{P(d)}\]</span></p>
+<p>Using the simplifying conditional independence assumption, that given a class (positive or negative), the words are conditionally independent of each other, the model is considered “naïve”.</p>
+<p><span class="math">\[P(c_i | d) = \frac{\prod P(x_i | c_j) * P(c_j)}{P(d)}\]</span></p>
+<p>Consequently, the classifier outputs the class with the maximum posterior probability. To implement we use the <code>sentiment</code> package and the code can be found in the files titled <em>Polarity Assessment XXXX.R</em> in which XXXX is represented by the document year of interest. The analysis provides four outputs for each text assessed:</p>
+<ul>
+<li><strong>Positive Score</strong>: The absolute log likelihood of the document expressing a positive sentiment.</li>
+<li><strong>Negative Score</strong>: The absolute log likelihood of the document expressing a negative sentiment.</li>
+<li><strong>Positive/Negative</strong>: The ratio of absolute log likelihoods between positive and negative sentiment scores. A score of 1 indicates a neutral sentiment, less than 1 indicates a negative sentiment, and greater than 1 indicates a positive sentiment.</li>
+<li><strong>Best Fit</strong>: The most likely sentiment category (e.g. positive, negative, neutral) for the given text.</li>
+</ul>
+<p>Lastly, as a result of prior analyses we suspected a possible shift in directive versus inclusive language across the blue book versions. To assess we compared the use of “you” (directive) to “our” (inclusive) across the documents. We normalized by dividing the total count of occurrences for each of these two words in each document by the total number of words in the respective document. The code for this can be found in the <em>directive_inclusive.R</em> file.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>The published documents contained in the AF Little Blue Book Documents folder and are titled <em>AF Blue Book - XXXX</em> where XXXX is represented by the year published (1983, 1997, etc.). An online version of the most recent (2015) document can be found <a href="http://www.e-publishing.af.mil/shared/media/document/AFD-150826-047.pdf">here</a>.<a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>Ian Fellows (2014). wordcloud: Word Clouds. R package version 2.5. <a href="https://CRAN.R-project.org/package=wordcloud" class="uri">https://CRAN.R-project.org/package=wordcloud</a>.<a href="#fnref2">↩</a></p></li>
+<li id="fn3"><p>Stop words refer to the most common words in a language. English stop words generally include words such as <em>the</em>, <em>is</em>, <em>at</em>, <em>which</em>, etc.<a href="#fnref3">↩</a></p></li>
+<li id="fn4"><p>I.e. Nouns, verbs/actions, descriptive adjectives, etc.<a href="#fnref4">↩</a></p></li>
+<li id="fn5"><p>Williams, J. M. &amp; Bizup, J. (2014). <em>Style: lessons in clarity and grace.</em> Pearson.<a href="#fnref5">↩</a></p></li>
+<li id="fn6"><p>Riloff and Wiebe (2003). Learning extraction patterns for subjective expressions. EMNLP-2003. <a href="http://www.cs.pitt.edu/mpqa/#subj_lexicon" class="uri">http://www.cs.pitt.edu/mpqa/#subj_lexicon</a><a href="#fnref6">↩</a></p></li>
+<li id="fn7"><p>Janyce Wiebe and Rada Mihalcea (2006). Word Sense and Subjectivity. Joint conference of the International Committee on Computational Linguistics and the Association for Computational Linguistics. (COLING-ACL 2006).<a href="#fnref7">↩</a></p></li>
+<li id="fn8"><p>Maas, A. L., Daly, R. E., Pham, P. T., Huang, D., Ng, A. Y., &amp; Potts, C. (2011, June). Learning word vectors for sentiment analysis. In Proceedings of the 49th Annual Meeting of the Association for Computational Linguistics: Human Language Technologies-Volume 1 (pp. 142-150). Association for Computational Linguistics.<a href="#fnref8">↩</a></p></li>
+<li id="fn9"><p>Narayanan, V., Arora, I., &amp; Bhatia, A. (2013). Fast and accurate sentiment classification using an enhanced Naive Bayes model. In Intelligent Data Engineering and Automated Learning–IDEAL 2013 (pp. 194-201). Springer Berlin Heidelberg.<a href="#fnref9">↩</a></p></li>
+<li id="fn10"><p>This notation uses the “Iverson bracket notation” that denotes a number that is 1 if the condition in square brackets is satisfied, and 0 otherwise.<a href="#fnref10">↩</a></p></li>
 </ol>
+</div>
 
 
 </div>
